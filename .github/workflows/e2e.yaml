@@ -43,6 +43,9 @@ jobs:
 
       - name: "Bring in Azure CLI"
         uses: azure/actions/login@v1
+        with:
+          creds:
+            required: false
 
       - name: "Create storage queues"
         env:
