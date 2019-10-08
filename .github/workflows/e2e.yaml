@@ -4,7 +4,7 @@
 # 3. Add this yaml file to your project's .github/workflows/
 # 4. Push your local project to your GitHub Repository
 
-name: Linux_Python_Workflow
+name: E2E tests on Azure
 
 on:
   push:
