@@ -38,16 +38,14 @@ jobs:
           LOCAL_SETTINGS_JSON: ${{ secrets.LOCAL_SETTINGS_JSON }}
         shell: bash
         run: |
-          ls -l v2functions/
           echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
           ls -l v2functions/local.settings.json
 
-      - name: "Tell Azure CLI about our storage secrets"
+      - name: "Create storage queues"
         uses: azure/actions/login@v1
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
-      - name: "Create storage queues"
         run: |
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
