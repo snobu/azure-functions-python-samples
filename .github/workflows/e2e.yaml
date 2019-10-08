@@ -22,11 +22,13 @@ jobs:
         uses: azure/actions/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+        env:
+          SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
       
       - run: |
           az webapp list --query "[?state=='Running']"
           echo -------- Let's get an access token --------
-          az account get-access-token --query accessToken -o tsv | cut -b 1-100
+          az account get-access-token -s $SUBSCRIPTION_ID --query accessToken -o tsv | cut -b 1-100
 
       - name: "Setup Python 3.6"
         uses: actions/setup-python@v1
