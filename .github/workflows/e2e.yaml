@@ -41,11 +41,12 @@ jobs:
           echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
           ls -l v2functions/local.settings.json
 
-      - name: "Create storage queues"
+      - name: "Prep Azure CLI"
         uses: azure/actions/login@v1
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+      - name: "Create storage queue"
         run: |
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
