@@ -45,8 +45,8 @@ jobs:
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
-        #with:
-        #  creds: ${{ secrets.AZURE_CREDENTIALS }}
+        # with:
+        #   creds: ${{ secrets.AZURE_CREDENTIALS }}
         run: |
           # This is a little faster than az storage queue exists and a second create call
           for name in 'itemsqueue' 'inqueue' 'outqueue'
