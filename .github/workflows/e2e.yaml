@@ -41,27 +41,39 @@ jobs:
           echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
           ls -l v2functions/local.settings.json
 
+      - run: |
+          pip install azure-cli
+
       - name: "Create storage queues"
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
         run: |
-          pip install azure-cli
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
             az storage queue create -n $name
           done
-    # - name: 'Run Azure Functions Action'
-    #   uses: Azure/functions-action@v1
-    #   id: fa
-    #   with:
-    #     app-name: ${{ secrets.FUNCTION_APP_NAME }}
-    #     # If your function app project is not located in your repository's root
-    #     # Please consider prefixing the project path in this package parameter
-    #     package: '.'
-    #     # If you want to use publish profile credentials instead of Azure Service Principal
-    #     # Please uncomment the following line
-    #     publish-profile: ${{ secrets.SCM_CREDENTIALS }}
-    # - name: 'use the published functionapp url in upcoming steps'
-    #   run: |
-    #    echo "${{ steps.fa.outputs.app-url }}"
+
+      - name: 'Publish Function App to Azure'
+        uses: Azure/functions-action@v1
+        id: fa
+        with:
+          app-name: ${{ secrets.FUNCTION_APP_NAME }}
+          # If your function app project is not located in your repository's root
+          # Please consider prefixing the project path in this package parameter
+          package: '.'
+          # If you want to use publish profile credentials instead of Azure Service Principal
+          # Please uncomment the following line
+          publish-profile: ${{ secrets.SCM_CREDENTIALS }}
+
+      - name: "Put message into storage queue"
+        env:
+          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+          AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+        shell: bash
+        run: |
+          az storage message put -q itemsqueue --content 'Hello from action' -o json
+
+      # - name: 'use the published functionapp url in upcoming steps'
+      #   run: |
+      #   echo "${{ steps.fa.outputs.app-url }}"
