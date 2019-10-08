@@ -36,6 +36,13 @@ jobs:
         pip install -r requirements.txt --target=".python_packages/lib/python3.6/site-packages"
         popd
 
+    - name: 'Drop function.json (with secrets) to function app directory'
+      shell: bash
+      run: |
+        echo "${{ secrets.FUNCTION_JSON }}" >> v2functions/function.json
+        ls -l v2functions/function.json
+        grep connection v2functions/function.json
+        
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
@@ -51,4 +58,3 @@ jobs:
     - name: 'use the published functionapp url in upcoming steps'
       run: |
        echo "${{ steps.fa.outputs.app-url }}"
-       echo "${{ secrets.FUNCTION_JSON }}"
