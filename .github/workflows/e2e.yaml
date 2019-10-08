@@ -26,8 +26,8 @@ jobs:
           SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
       
       - run: |
-          az webapp list --query "[?state=='Running']"
-          echo -------- Let's get an access token --------
+          az account list
+          echo "Let's get an access token"
           az account get-access-token -s b92fc3fc-199c-45c2-98ea-23f2898832b7 --query accessToken -o tsv | cut -b 1-100
 
       - name: "Setup Python 3.6"
