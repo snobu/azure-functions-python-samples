@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: |
           ls -l v2functions/
-          echo "${{ secrets.LOCAL_SETTINGS_JSON }}"
+          echo ${{ secrets.LOCAL_SETTINGS_JSON }} > v2functions/local.settings.json
           #ls -l v2functions/local.settings.json
 
       - name: "Tell Azure CLI about our storage secrets"
