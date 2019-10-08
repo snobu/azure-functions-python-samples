@@ -40,13 +40,13 @@ jobs:
           ls -l v2functions/local.settings.json
           grep ComputerVisionApiEndpoint v2functions/local.settings.json
 
-      - name: "Put message in Storage Queue"
+      - name: "Tell Azure CLI about our storage secrets"
         uses: azure/actions/login@v1
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
+      - name: "Create storage queues"
       - run: |
-          # This is a little faster than az storage queue exists and a second create call
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
             az storage queue create -n $name
