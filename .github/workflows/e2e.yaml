@@ -34,7 +34,8 @@ jobs:
           popd
 
       - name: "Drop local.settings.json to function app directory"
-        env: LOCAL_SETTINGS_JSON: ${{ secrets.LOCAL_SETTINGS_JSON }}
+        env:
+          LOCAL_SETTINGS_JSON: ${{ secrets.LOCAL_SETTINGS_JSON }}
         shell: bash
         run: |
           ls -l v2functions/
