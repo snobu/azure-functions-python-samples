@@ -46,7 +46,7 @@ jobs:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
       - name: "Create storage queues"
-      - run: |
+        run: |
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
             az storage queue create -n $name
