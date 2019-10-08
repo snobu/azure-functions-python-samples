@@ -34,11 +34,12 @@ jobs:
           popd
 
       - name: "Drop local.settings.json to function app directory"
+        env: LOCAL_SETTINGS_JSON: ${{ secrets.LOCAL_SETTINGS_JSON }}
         shell: bash
         run: |
           ls -l v2functions/
-          echo ${{ secrets.LOCAL_SETTINGS_JSON }} > v2functions/local.settings.json
-          #ls -l v2functions/local.settings.json
+          echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
+          ls -l v2functions/local.settings.json
 
       - name: "Tell Azure CLI about our storage secrets"
         uses: azure/actions/login@v1
