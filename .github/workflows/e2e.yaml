@@ -42,10 +42,7 @@ jobs:
           ls -l v2functions/local.settings.json
 
       - name: "Bring in Azure CLI"
-        uses: azure/actions/login@v1
-        with:
-          creds:
-            required: false
+        uses: azure/actions/cli@v1
 
       - name: "Create storage queues"
         env:
