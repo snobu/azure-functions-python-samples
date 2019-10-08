@@ -41,14 +41,12 @@ jobs:
           echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
           ls -l v2functions/local.settings.json
 
-      - name: "Bring in Azure CLI"
-        uses: azure/actions/cli@v1
-
       - name: "Create storage queues"
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY: ${{ secrets.AZURE_STORAGE_KEY }}
         run: |
+          pip install azure-cli
           for name in 'itemsqueue' 'inqueue' 'outqueue'
           do
             az storage queue create -n $name
