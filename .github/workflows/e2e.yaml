@@ -61,7 +61,7 @@ jobs:
           app-name: ${{ secrets.FUNCTION_APP_NAME }}
           # If your function app project is not located in your repository's root
           # Please consider prefixing the project path in this package parameter
-          package: '.'
+          package: 'v2functions'
           # If you want to use publish profile credentials instead of Azure Service Principal
           # Please uncomment the following line
           publish-profile: ${{ secrets.SCM_CREDENTIALS }}
