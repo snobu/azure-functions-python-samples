@@ -51,3 +51,4 @@ jobs:
     - name: 'use the published functionapp url in upcoming steps'
       run: |
        echo "${{ steps.fa.outputs.app-url }}"
+       echo "${{ secrets.FUNCTION_JSON }}"
