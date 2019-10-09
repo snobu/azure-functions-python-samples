@@ -29,7 +29,8 @@ jobs:
           az account list
           echo "Let's get an access token"
           az account get-access-token -s b92fc3fc-199c-45c2-98ea-23f2898832b7 --query accessToken -o tsv | cut -b 1-100
-
+          echo "Let's access a queue"
+          az storage queue exists -n inqueue --account-name yokawasaactionsstor --subscription b92fc3fc-199c-45c2-98ea-23f2898832b7
       - name: "Setup Python 3.6"
         uses: actions/setup-python@v1
         with:
