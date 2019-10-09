@@ -65,6 +65,15 @@ jobs:
           do
             az storage queue create -n $name
           done
+      
+      - name: "Create storage containers"
+        env:
+          AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
+        run: |
+          for name in 'inputitems' 'outputitems'
+          do
+            az storage container create -n $name --public-access off
+          done
 
       - name: 'Publish Function App to Azure'
         uses: Azure/functions-action@v1
